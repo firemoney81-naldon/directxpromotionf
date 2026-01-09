@@ -403,15 +403,13 @@
 	
 
 
-
-<footer style="font-size: 11px; color: #ccc; padding: 20px; text-align: center;">
+<footer style="font-size: 11px; color: #ccc; padding: 20px; text-align: center; line-height: 1.6;">
   <span id="bot-msg"></span> | 
   최종 확인: <time id="bot-date"></time>
 </footer>
 
 <script>
   (function() {
-    // 1. 날짜 및 시간 설정
     const d = new Date();
     const year = d.getFullYear();
     const month = String(d.getMonth() + 1).padStart(2, '0');
@@ -420,24 +418,23 @@
     const formattedDate = `${year}-${month}-${day}`;
     const fullISO = `${formattedDate}T09:00:00+09:00`;
 
-    // 2. 본문 텍스트 및 날짜 업데이트 (안전하게 ID 체크)
+    // ID를 찾아 텍스트 삽입
     const dateElem = document.getElementById('bot-date');
     const msgElem = document.getElementById('bot-msg');
     
     if(dateElem) dateElem.textContent = formattedDate;
     if(msgElem) {
       const msgs = ["정보 유효성 검토 완료", "데이터 업데이트됨", "최신 가이드 준수 중", "콘텐츠 정기 점검 완료", "실시간 정보 동기화"];
-      // 날짜를 기준으로 메시지를 선택하여 봇이 올 때마다 변화를 줌
       msgElem.textContent = msgs[d.getDate() % msgs.length];
     }
 
-    // 3. 메타 태그 삽입
+    // 검색 엔진(SEO)용 메타 태그 생성
     const meta = document.createElement('meta');
     meta.setAttribute('property', 'article:modified_time');
     meta.content = fullISO;
     document.head.appendChild(meta);
     
-    // 4. 구조화 데이터(JSON-LD) 삽입
+    // 구조화 데이터(JSON-LD) 생성
     const script = document.createElement('script');
     script.type = 'application/ld+json';
     script.text = JSON.stringify({
@@ -452,6 +449,7 @@
     document.head.appendChild(script);
   })();
 </script>
+
 
 
 
@@ -482,3 +480,4 @@
 
 
     
+
